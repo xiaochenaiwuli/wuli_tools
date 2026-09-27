@@ -4156,7 +4156,7 @@ function fmtMsr() {
 
 function fmtLc() {
   if (isImperial()) return IM().fractional ? '1/128' : IM().lc.toFixed(3);
-  return parseFloat(state.prec).toFixed(2);
+  return parseFloat(state.prec).toFixed(metricDp());
 }
 
 function fmtPart() {

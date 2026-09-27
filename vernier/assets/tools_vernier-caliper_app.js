@@ -453,12 +453,14 @@ const ZE_MAX_LC = 5;
 function getZeOffsetMm() { return state.zeOn ? state.zeLc * getLcMm() : 0; }
 function getDisplayMm()  { return state.mm + getZeOffsetMm(); }
 function clampZeLc(n)    { return Math.max(-ZE_MAX_LC, Math.min(ZE_MAX_LC, n | 0)); }
+// Decimal places for metric display: 0.1 mm scale reads to 1 d.p., others to 2.
+function metricDp() { return state.prec === '0.1' ? 1 : 2; }
 function fmtZeSigned() {
-  if (state.zeLc === 0) return impFractional() ? '0' : (0).toFixed(isImperial() ? 3 : 2);
+  if (state.zeLc === 0) return impFractional() ? '0' : (0).toFixed(isImperial() ? 3 : metricDp());
   const dispVal = Math.abs(state.zeLc * getLcDisplay());
   const sign = state.zeLc > 0 ? '+' : '−';
   return sign + (impFractional() ? fracStr(dispVal, 128)
-                                 : dispVal.toFixed(isImperial() ? 3 : 2));
+                                 : dispVal.toFixed(isImperial() ? 3 : metricDp()));
 }
 function parseNumericInput(raw) {
   const s = (raw || '').trim();
@@ -647,12 +649,12 @@ function withUnit(v)  { return isImperial() ? v + '\u2033' : v + ' mm'; }
 // A value already in DISPLAY units, rendered the way this instrument is read.
 function fmtDispValue(v) {
   if (isImperial()) return IM().fractional ? fracStr(v, 128) : v.toFixed(3);
-  return v.toFixed(2);
+  return v.toFixed(metricDp());
 }
 
 function fmtReading(mm) {
   if (isImperial()) return fmtDispValue(mm * MM_TO_IN);
-  return mm.toFixed(2);
+  return mm.toFixed(metricDp());
 }
 
 // The reading a perfect operator would write down for a given jaw gap: the
@@ -725,7 +727,7 @@ function fmtPart() {
   const alignIdx = getAlignedIdx();
   const lcVal = getLcDisplay();
   if (impFractional()) return fracStr(alignIdx * lcVal, 128);
-  return (alignIdx * lcVal).toFixed(isImperial() ? 3 : 2);
+  return (alignIdx * lcVal).toFixed(isImperial() ? 3 : metricDp());
 }
 
 function fmtTr() {
@@ -743,7 +745,7 @@ function fmtTr() {
   }
   const mainMm = Math.max(0, Math.floor(mm + 1e-9));
   const pf = parseFloat(state.prec);
-  return (mainMm + alignIdx * pf).toFixed(2);
+  return (mainMm + alignIdx * pf).toFixed(metricDp());
 }
 
 // Snap to least count in mm

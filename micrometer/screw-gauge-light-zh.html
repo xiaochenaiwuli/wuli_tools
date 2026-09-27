@@ -8265,7 +8265,7 @@ function canvasScale() {
 function dragMmPerPx() {
   const mag = state.dragFine
     ? getLcMm() / (RATCHET_PX_PER_DIV * canvasScale())
-    : getPitch() / (getMsdPx() * DS);
+    : (isImperial() ? getPitch() : MICRO_EST) / (getMsdPx() * DS);
   return mag * scaleDir();
 }
 

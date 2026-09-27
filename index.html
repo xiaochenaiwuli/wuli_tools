@@ -9,8 +9,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
+      background: #f5f7fa;
+      color: #1a1a2e;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -31,20 +31,20 @@
     header h1 {
       font-size: 2rem;
       font-weight: 700;
-      color: #26c6da;
+      color: #2563eb;
       margin-bottom: 0.5rem;
     }
 
     header p {
       font-size: 1.1rem;
-      color: #8b949e;
+      color: #64748b;
       max-width: 600px;
       margin: 0 auto;
     }
 
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       max-width: 1100px;
       margin: 2rem auto;
@@ -54,8 +54,8 @@
 
     .tool-card {
       display: block;
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: #fff;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
       overflow: hidden;
       transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -65,91 +65,45 @@
 
     .tool-card:hover {
       transform: translateY(-4px);
-      border-color: #26c6da;
-      box-shadow: 0 8px 24px rgba(38, 198, 218, 0.15);
+      border-color: #2563eb;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: #1a1a2e;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .tool-card .card-body {
-      padding: 1.5rem;
-    }
-
-    .tool-card .icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.75rem;
+      padding: 1rem 1.5rem;
+      text-align: center;
     }
 
     .tool-card h2 {
-      font-size: 1.3rem;
-      color: #f0f6fc;
-      margin-bottom: 0.5rem;
-    }
-
-    .tool-card p {
-      font-size: 0.95rem;
-      color: #8b949e;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .tool-card .links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .tool-card .links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: background 0.15s;
-    }
-
-    .btn-primary {
-      background: #26c6da;
-      color: #0d1117;
-    }
-
-    .btn-primary:hover {
-      background: #4dd0e1;
-    }
-
-    .btn-secondary {
-      background: #21262d;
-      color: #c9d1d9;
-      border: 1px solid #30363d;
-    }
-
-    .btn-secondary:hover {
-      background: #30363d;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: rgba(38, 198, 218, 0.15);
-      color: #26c6da;
-      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+      color: #1e293b;
     }
 
     footer {
       text-align: center;
       padding: 2rem 1rem;
       margin-top: auto;
-      color: #484f58;
+      color: #94a3b8;
       font-size: 0.85rem;
     }
 
     @media (max-width: 480px) {
       header h1 { font-size: 1.5rem; }
       .tools-grid { grid-template-columns: 1fr; }
+      .card-img { height: 150px; }
     }
   </style>
 </head>
@@ -164,29 +118,29 @@
   <main class="tools-grid">
 
     <a class="tool-card" href="ruler/steel-ruler-light-zh.html">
+      <div class="card-img">
+        <img src="ruler/assets/img/screenshot.webp" alt="钢尺模拟器">
+      </div>
       <div class="card-body">
-        <div class="icon">📏</div>
-        <span class="tag">精度 0.5 mm / 1/16"</span>
         <h2>钢尺模拟器</h2>
-        <p>练习 0–150 mm 毫米刻度和英寸 1/16" 精度读数，含引导练习和计时测验。</p>
       </div>
     </a>
 
     <a class="tool-card" href="vernier/vernier-caliper-light-zh.html">
+      <div class="card-img">
+        <img src="vernier/assets/img/screenshot.webp" alt="游标卡尺模拟器">
+      </div>
       <div class="card-body">
-        <div class="icon">📐</div>
-        <span class="tag">精度 0.02 mm</span>
         <h2>游标卡尺模拟器</h2>
-        <p>练习游标卡尺读数，支持公制和英制，含外径、内径和深度测量模式。</p>
       </div>
     </a>
 
     <a class="tool-card" href="micrometer/screw-gauge-light-zh.html">
+      <div class="card-img">
+        <img src="micrometer/assets/img/screenshot.webp" alt="螺旋测微器模拟器">
+      </div>
       <div class="card-body">
-        <div class="icon">🔧</div>
-        <span class="tag">精度 0.01 mm</span>
         <h2>螺旋测微器模拟器</h2>
-        <p>练习螺旋测微器读数，含主尺、副尺和估读练习。</p>
       </div>
     </a>
 

@@ -3798,11 +3798,11 @@ function updateObjBar() {
   // "cannot resolve" note is there to teach.
   const trueDisp = isImperial()
     ? (wp.mm * MM_TO_IN).toFixed(impFractional() ? 4 : 3)
-    : wp.mm.toFixed(2);
+    : wp.mm.toFixed(metricDp());
   const readDisp = fmtTr();
   // What the instrument can actually resolve: the true size rounded to the LC.
   const resolvable = Math.round(wp.mm / getLcMm()) * getLcMm();
-  const resDisp = isImperial() ? fmtDispValue(resolvable * MM_TO_IN) : resolvable.toFixed(2);
+  const resDisp = isImperial() ? fmtDispValue(resolvable * MM_TO_IN) : resolvable.toFixed(metricDp());
   const unresolved = Math.abs(resolvable - wp.mm) > 1e-9;
 
   const internal = wpIsInternal();

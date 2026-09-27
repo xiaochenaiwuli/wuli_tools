@@ -4080,15 +4080,17 @@ function escHtml(s) {
 }
 function withUnit(v)  { return isImperial() ? v + '\u2033' : v + ' mm'; }
 
+function metricDp() { return state.prec === '0.1' ? 1 : 2; }
+
 // A value already in DISPLAY units, rendered the way this instrument is read.
 function fmtDispValue(v) {
   if (isImperial()) return IM().fractional ? fracStr(v, 128) : v.toFixed(3);
-  return v.toFixed(2);
+  return v.toFixed(metricDp());
 }
 
 function fmtReading(mm) {
   if (isImperial()) return fmtDispValue(mm * MM_TO_IN);
-  return mm.toFixed(2);
+  return mm.toFixed(metricDp());
 }
 
 // The reading a perfect operator would write down for a given jaw gap: the
@@ -4161,7 +4163,7 @@ function fmtPart() {
   const alignIdx = getAlignedIdx();
   const lcVal = getLcDisplay();
   if (impFractional()) return fracStr(alignIdx * lcVal, 128);
-  return (alignIdx * lcVal).toFixed(isImperial() ? 3 : 2);
+  return (alignIdx * lcVal).toFixed(isImperial() ? 3 : metricDp());
 }
 
 function fmtTr() {
@@ -4179,7 +4181,7 @@ function fmtTr() {
   }
   const mainMm = Math.max(0, Math.floor(mm + 1e-9));
   const pf = parseFloat(state.prec);
-  return (mainMm + alignIdx * pf).toFixed(2);
+  return (mainMm + alignIdx * pf).toFixed(metricDp());
 }
 
 // Snap to least count in mm
@@ -4819,7 +4821,7 @@ function wpDimText(contact) {
   const wp = state.wp;
   if (!contact) return wp.what;
   if (!wpRevealAllowed()) return '读刻度';
-  return isImperial() ? fmtDispValue(wp.mm * MM_TO_IN) + '″' : wp.mm.toFixed(2) + ' mm';
+  return isImperial() ? fmtDispValue(wp.mm * MM_TO_IN) + '″' : wp.mm.toFixed(metricDp()) + ' mm';
 }
 
 // Caption chip, drawn centred on (cx, cy). Returns nothing — purely a stamp.
@@ -7238,11 +7240,11 @@ function updateObjBar() {
   // "无法分辨" note is there to teach.
   const trueDisp = isImperial()
     ? (wp.mm * MM_TO_IN).toFixed(impFractional() ? 4 : 3)
-    : wp.mm.toFixed(2);
+    : wp.mm.toFixed(metricDp());
   const readDisp = fmtTr();
   // What the instrument can actually resolve: the true size rounded to the LC.
   const resolvable = Math.round(wp.mm / getLcMm()) * getLcMm();
-  const resDisp = isImperial() ? fmtDispValue(resolvable * MM_TO_IN) : resolvable.toFixed(2);
+  const resDisp = isImperial() ? fmtDispValue(resolvable * MM_TO_IN) : resolvable.toFixed(metricDp());
   const unresolved = Math.abs(resolvable - wp.mm) > 1e-9;
 
   const internal = wpIsInternal();

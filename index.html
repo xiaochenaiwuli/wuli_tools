@@ -71,15 +71,17 @@
 
     .card-img {
       width: 100%;
-      height: 180px;
-      overflow: hidden;
-      background: #1a1a2e;
+      padding: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
     }
 
     .card-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
     }
 
     .tool-card .card-body {
@@ -103,7 +105,7 @@
     @media (max-width: 480px) {
       header h1 { font-size: 1.5rem; }
       .tools-grid { grid-template-columns: 1fr; }
-      .card-img { height: 150px; }
+
     }
   </style>
 </head>
@@ -119,7 +121,7 @@
 
     <a class="tool-card" href="ruler/steel-ruler-light-zh.html">
       <div class="card-img">
-        <img src="ruler/assets/img/screenshot.webp" alt="钢尺模拟器">
+        <img src="icons/ruler.png" alt="钢尺模拟器">
       </div>
       <div class="card-body">
         <h2>钢尺模拟器</h2>
@@ -128,7 +130,7 @@
 
     <a class="tool-card" href="vernier/vernier-caliper-light-zh.html">
       <div class="card-img">
-        <img src="vernier/assets/img/screenshot.webp" alt="游标卡尺模拟器">
+        <img src="icons/vernier_caliper.png" alt="游标卡尺模拟器">
       </div>
       <div class="card-body">
         <h2>游标卡尺模拟器</h2>
@@ -137,7 +139,7 @@
 
     <a class="tool-card" href="micrometer/screw-gauge-light-zh.html">
       <div class="card-img">
-        <img src="micrometer/assets/img/screenshot.webp" alt="螺旋测微器模拟器">
+        <img src="icons/screw_gauge.png" alt="螺旋测微器模拟器">
       </div>
       <div class="card-body">
         <h2>螺旋测微器模拟器</h2>

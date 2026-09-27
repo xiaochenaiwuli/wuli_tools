@@ -2865,9 +2865,9 @@ header h1 {
       <div class="tr-legend">
         <span class="trl-msr">MSR</span>：主尺读数 &nbsp;&middot;&nbsp;
         <span class="trl-csr">CSR</span>：微分筒读数 &nbsp;&middot;&nbsp;
-        <span class="trl-lc">LC</span>：最小分度值（<span id="legend-lc">0.010 mm</span>）
+        <span class="trl-lc">LC</span>：最小分度值（<span id="legend-lc">0.01 mm</span>）
       </div>
-      <div class="tr-step" id="tr-step1">= <span id="f-msr">0.000</span> + (<span id="f-csr">0</span> &times; <span id="f-lc">0.010</span>)</div>
+      <div class="tr-step" id="tr-step1">= <span id="f-msr">0.000</span> + (<span id="f-csr">0</span> &times; <span id="f-lc">0.01</span>)</div>
       <div class="tr-step" id="tr-step2">= <span id="f-msr2">0.000</span> + <span id="f-part">0.000</span></div>
       <div class="tr-step" id="tr-step-rod" style="display:none">= <span id="f-rod">0.000</span> <span class="trl-rod" id="f-base-lbl">(rod)</span> + <span id="f-screw">0.000</span> <span class="trl-rod">(screw)</span></div>
       <div class="tr-result">= <span id="f-tr">0.000</span> <span class="tr-unit">mm</span></div>
@@ -4392,7 +4392,7 @@ function fmtLc() {
   // which was correct only while those were the only two: a depth micrometer
   // has its own constants and a hardcoded lookup would quote the wrong one the
   // moment the instruments stopped being interchangeable.
-  return getLcDisplay().toFixed(isImperial() ? 3 : 3);
+  return getLcDisplay().toFixed(isImperial() ? 3 : 2);
 }
 
 function fmtTr(mm) {
@@ -6470,12 +6470,11 @@ function updateReadingPanel() {
   // The walkthrough's partial state, expressed as a reading the formatters can
   // take: whole pitches for the MSR, plus the divisions counted so far.
   const liveQ   = live ? (live.msrDivs * getPitch() + live.csr * getLcMm()) : obsQ;
-  // For estimation reading, CSR is the LOWER division (floor), not the rounded one
   const _msrEst = !isImperial() && !live ? Math.floor(obsEst / getPitch() + 1e-9) * getPitch() : 0;
   const csr     = live ? live.csr
-                       : (!isImperial() ? Math.floor((obsEst - _msrEst) / getLcMm() + 1e-9) : getCSR(obsQ));
+                       : (!isImperial() ? (obsEst - _msrEst) / getLcMm() : getCSR(obsQ));
   const msrStr  = fmtMsr(liveQ);
-  const csrStr  = String(csr);
+  const csrStr  = !isImperial() && !live ? csr.toFixed(1) : String(csr);
   const lcStr   = fmtLc();
   const partStr = live ? fmtPart(liveQ) : (csr * getLcDisplay()).toFixed(isImperial() ? 3 : 3);
   const totStr  = live ? fmtTr(liveQ)
@@ -8017,10 +8016,7 @@ function syncThimbleUi() {
 function setThimble(v) {
   teachAbort();
   state.thimble100 = (v === '100');
-  // Both metric instruments read to 0.01 mm, so nothing needs re-snapping —
-  // but a part held off the grid still has to be brought onto it, and the
-  // spindle must stay inside the range whichever screw is fitted.
-  state.mm   = clampMm(snapToLc(state.mm));
+  state.mm   = clampMm(isImperial() ? snapToLc(state.mm) : snapToEst(state.mm));
   state.zeLc = clampZeLc(state.zeLc);
   syncThimbleUi();
   if      (state.mode === 'practice') newPractice();
@@ -8031,7 +8027,7 @@ function setThimble(v) {
 function setUnit(unit) {
   teachAbort();
   state.unit = unit;
-  state.mm = clampMm(snapToLc(state.mm));
+  state.mm = clampMm(isImperial() ? snapToLc(state.mm) : snapToEst(state.mm));
   state.zeLc = clampZeLc(state.zeLc);
   // The rod SET is unit-specific — 25 mm steps against 1 in steps — so the
   // pills are rebuilt rather than relabelled, and the fitted rod resets to the
@@ -8185,7 +8181,7 @@ function setInstrument(v) {
   // Re-seat the spindle: the two instruments have different ranges (15 mm of
   // usable outside travel against 25 mm of depth screw), so a reading valid on
   // one can sit outside the other.
-  state.mm   = clampMm(snapToLc(state.mm));
+  state.mm   = clampMm(isImperial() ? snapToLc(state.mm) : snapToEst(state.mm));
   state.zeLc = clampZeLc(state.zeLc);
   syncInstrumentUi();
   syncAnswerInput();
@@ -8585,7 +8581,8 @@ function onDragMove(e) {
   var dx = getCanvasX(e) - state.dragRefX;
   var oldMm = state.mm;
   var wasContact = wpInContact();
-  state.mm = clampMm(snapToLc(state.dragRefMm + dx * dragMmPerPx()));
+  var raw = state.dragRefMm + dx * dragMmPerPx();
+  state.mm = clampMm(isImperial() ? snapToLc(raw) : snapToEst(raw));
   if (state.mm !== oldMm) playTick();
   if (!wasContact && wpInContact()) playContact();
   render();
@@ -8615,8 +8612,8 @@ function onWheel(e) {
   if (state.locked && !state.zoomOpen) { nudgeLocked(); e.preventDefault(); return; }
   if (!canDragJaws()) return;
   cancelGlide();
-  var lcMm = getLcMm();
-  state.mm = clampMm(snapToLc(state.mm + (e.deltaY > 0 ? lcMm : -lcMm)));
+  var step = isImperial() ? getLcMm() : MICRO_EST;
+  state.mm = clampMm(isImperial() ? snapToLc(state.mm + (e.deltaY > 0 ? step : -step)) : snapToEst(state.mm + (e.deltaY > 0 ? step : -step)));
   playTick();
   render();
   e.preventDefault();
@@ -8648,7 +8645,7 @@ function onKeyDown(e) {
   teachAbort();
 
   dismissHint();
-  var step = e.shiftKey ? getPitch() : getLcMm();
+  var step = e.shiftKey ? getPitch() : (isImperial() ? getLcMm() : MICRO_EST);
   // Up/Down are VALUE keys — up is always more depth. Left/Right are SPATIAL:
   // they move the thimble the way it is drawn, which is the opposite sense on
   // a reversed instrument. Mapping both pairs to the value made Right disagree
@@ -8657,7 +8654,7 @@ function onKeyDown(e) {
     var spatial = (e.key === 'ArrowRight') ? scaleDir() : -scaleDir();
     cancelGlide();
     var wasC = wpInContact();
-    state.mm = clampMm(snapToLc(state.mm + spatial * step));
+    state.mm = clampMm(isImperial() ? snapToLc(state.mm + spatial * step) : snapToEst(state.mm + spatial * step));
     playTick();
     if (!wasC && wpInContact()) playContact();
     render(); e.preventDefault();
@@ -8665,12 +8662,12 @@ function onKeyDown(e) {
   }
   if (e.key === 'ArrowUp') {
     cancelGlide();
-    state.mm = clampMm(snapToLc(state.mm + step));
+    state.mm = clampMm(isImperial() ? snapToLc(state.mm + step) : snapToEst(state.mm + step));
     playTick(); render(); e.preventDefault();
   } else if (e.key === 'ArrowDown') {
     cancelGlide();
     var wasContact = wpInContact();
-    state.mm = clampMm(snapToLc(state.mm - step));
+    state.mm = clampMm(isImperial() ? snapToLc(state.mm - step) : snapToEst(state.mm - step));
     playTick();
     if (!wasContact && wpInContact()) playContact();
     render(); e.preventDefault();
@@ -8740,7 +8737,7 @@ document.querySelectorAll('#instrument-toggle .pill').forEach(function(btn) {
   if (INSTRUMENTS.indexOf(want) < 0) return;
   state.instrument = want;
   state.rodIdx = 0;
-  state.mm = clampMm(snapToLc(state.mm));
+  state.mm = clampMm(isImperial() ? snapToLc(state.mm) : snapToEst(state.mm));
 })();
 
 syncInstrumentUi();

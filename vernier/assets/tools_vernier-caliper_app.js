@@ -1385,7 +1385,7 @@ function wpDimText(contact) {
   const wp = state.wp;
   if (!contact) return wp.what;
   if (!wpRevealAllowed()) return 'read the scale';
-  return isImperial() ? fmtDispValue(wp.mm * MM_TO_IN) + '″' : wp.mm.toFixed(2) + ' mm';
+  return isImperial() ? fmtDispValue(wp.mm * MM_TO_IN) + '″' : wp.mm.toFixed(metricDp()) + ' mm';
 }
 
 // Caption chip, drawn centred on (cx, cy). Returns nothing — purely a stamp.

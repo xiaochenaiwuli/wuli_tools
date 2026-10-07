@@ -1,5 +1,5 @@
 {
- "<title>Steel Ruler Simulator &mdash; 0&ndash;150 mm Practice | MechSimulator</title>": "<title>刻度尺模拟器 &mdash; 0&ndash;150 mm 读数练习 | 免费在线</title>",
+ "<title>Steel Ruler Simulator &mdash; 0&ndash;150 mm Practice | MechSimulator</title>": "<title>刻度尺模拟器 &mdash; 0&ndash;150 mm 读数练习 | 悟理</title>",
  "content=\"Free steel ruler reading simulator &mdash; practice reading 0&ndash;150 mm and inches to 1/16&Prime; precision. Guided exercises, timed quiz, no sign-up. Try it free!\"": "content=\"免费在线钢尺读数模拟器 &mdash; 练习读 0&ndash;150 mm 和英制 1/16&Prime; 刻度。带引导练习和计时测验，无需注册，免费使用。\"",
  "content=\"steel ruler reading simulator, how to read ruler mm, how to read a ruler in inches 1/16, ruler measurement practice, steel rule reading online, measurement practice tool, ruler precision 0.5mm, ruler reading practice inches, linear measurement simulator, engineering ruler\"": "content=\"钢尺读数模拟器, 刻度尺怎么读, 钢直尺读数, 英寸尺 1/16 怎么读, 长度测量练习, 在线钢尺读数, 测量练习工具, 钢尺精度 0.5mm, 英制尺读数练习, 线性测量模拟器, 工程用钢尺\"",
  "\"name\": \"Steel Ruler Simulator\"": "\"name\": \"刻度尺（钢尺）模拟器\"",
@@ -10,7 +10,7 @@
  "\"name\":\"Home\"": "\"name\":\"首页\"",
  "\"name\":\"Steel Ruler Simulator\",\"item\"": "\"name\":\"刻度尺模拟器\",\"item\"",
  ">Skip to content</a>": ">跳到主要内容</a>",
- "alt=\"MechSimulator\"": "alt=\"刻度尺模拟器\"",
+ "alt=\"MechSimulator\"": "alt=\"悟理\"",
  "<h1>Steel Ruler Simulator</h1>": "<h1>刻度尺模拟器</h1>",
  "Interactive length measurement trainer &mdash; 0&ndash;150&nbsp;mm &mdash; LC&nbsp;=&nbsp;": "交互式长度测量训练工具 &mdash; 0&ndash;150&nbsp;mm &mdash; LC&nbsp;=&nbsp;",
  "<span class=\"ctrl-label\">Mode</span>": "<span class=\"ctrl-label\">模式</span>",
@@ -86,7 +86,7 @@
  ">Contact</a>": ">联系我们</a>",
  "&#8592; All Tools": "&#8592; 全部工具",
  "title=\"Practice with real-world dimensions\"": "title=\"用真实尺寸做练习\"",
- "content=\"Steel Ruler Simulator &mdash; 0&ndash;150 mm Practice | MechSimulator\"": "content=\"刻度尺模拟器 &mdash; 0&ndash;150 mm 读数练习 | 免费在线\"",
+ "content=\"Steel Ruler Simulator &mdash; 0&ndash;150 mm Practice | MechSimulator\"": "content=\"刻度尺模拟器 &mdash; 0&ndash;150 mm 读数练习 | 悟理\"",
  ">&#177;&nbsp;Estimate</button>": ">&#177;&nbsp;估读</button>",
  "title=\"Let the cursor stop between graduations and estimate the last digit (0.1 mm)\"": "title=\"让游标可以停在两条刻度线之间，估读到最后一位（0.1 mm）\""
 }

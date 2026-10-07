@@ -6,7 +6,7 @@
   "&#8592; All Tools</a>": "&#8592; 全部工具</a>",
   "<h1>Screw Gauge Simulator</h1>": "<h1>螺旋测微器模拟器</h1>",
   "<p class=\"subtitle\">Interactive precision measurement trainer &mdash; LC&nbsp;=&nbsp;<span id=\"sub-lc\">0.01&nbsp;mm</span></p>": "<p class=\"subtitle\">交互式精密测量训练工具 &mdash; LC&nbsp;=&nbsp;<span id=\"sub-lc\">0.01&nbsp;mm</span></p>",
-  "alt=\"MechSimulator\"": "alt=\"螺旋测微器模拟器\"",
+  "alt=\"MechSimulator\"": "alt=\"悟理\"",
   "<span class=\"ctrl-label\">Mode</span>": "<span class=\"ctrl-label\">模式</span>",
   "data-value=\"free\">Simulate</button>": "data-value=\"free\">模拟</button>",
   "data-value=\"explore\">Explore</button>": "data-value=\"explore\">浏览</button>",

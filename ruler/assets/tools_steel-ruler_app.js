@@ -461,9 +461,9 @@ function drawRuler() {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   const midY = (RY_TOP + RY_BOT) / 2;
-  ctx.fillText('MechSimulator', mmToX(75) + 0.5, midY + 0.5);
+  ctx.fillText('悟理', mmToX(75) + 0.5, midY + 0.5);
   ctx.fillStyle = 'rgba(80, 55, 15, 0.7)';
-  ctx.fillText('MechSimulator', mmToX(75), midY);
+  ctx.fillText('悟理', mmToX(75), midY);
   ctx.font = '600 8px "Helvetica Neue", Arial, sans-serif';
   ctx.fillStyle = 'rgba(80, 55, 15, 0.6)';
   const lcTxt = state.system === 'imp' ? impLcTxt() : LC + ' mm';

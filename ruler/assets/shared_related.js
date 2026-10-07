@@ -400,7 +400,7 @@
     qrBtn.addEventListener('click', function () {
       loadQRLib(function () {
         var url = window.location.href;
-        var toolName = document.title.split('\u2014')[0].split('|')[0].trim() || 'MechSimulator';
+        var toolName = document.title.split('\u2014')[0].split('|')[0].trim() || '悟理';
 
         /* Generate QR and render to canvas */
         function renderQR(text) {
